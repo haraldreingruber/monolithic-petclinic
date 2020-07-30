@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class VetDto {
     private String firstName;
@@ -29,6 +30,21 @@ public class VetDto {
 
     public int getNrOfSpecialties() {
         return getSpecialties().size();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VetDto vetDto = (VetDto) o;
+        return Objects.equals(firstName, vetDto.firstName) &&
+                Objects.equals(lastName, vetDto.lastName) &&
+                Objects.equals(specialties, vetDto.specialties);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, specialties);
     }
 
 }

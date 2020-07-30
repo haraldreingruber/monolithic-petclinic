@@ -19,8 +19,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.samples.petclinic.model.SpecialtyDto;
+import org.springframework.samples.petclinic.model.VetDto;
+import org.springframework.samples.petclinic.service.VetDtoClient;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
@@ -32,21 +40,25 @@ class VetControllerTests {
     @Autowired
     MockMvc mockMvc;
 
+    @MockBean
+    VetDtoClient vetServiceMock;
+
     @Test
     void testShowVetListHtml() throws Exception {
+        when(vetServiceMock.allVets()).thenReturn(Arrays.asList(
+                new VetDto("James", "Carter", Collections.emptyList()),
+                new VetDto("Helen", "Leary", Arrays.asList(new SpecialtyDto("radiology"))),
+                new VetDto("Linda", "Douglas", Arrays.asList(new SpecialtyDto("dentistry"), new SpecialtyDto("surgery")))
+        ));
+
         mockMvc.perform(get("/vets"))
-            .andExpect(status().isOk())
-            .andExpect(xpath("//table[@id='vets']").exists())
-            .andExpect(xpath("//table[@id='vets']/tbody/tr").nodeCount(6))
-            .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=1]/td[position()=1]").string("James Carter"))
-            .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=1]/td[position()=2]/span").string("none"))
-            .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=2]/td[position()=1]").string("Helen Leary"))
-            .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=2]/td[position()=2]/span").string("radiology "))
-            .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=3]/td[position()=1]").string("Linda Douglas"))
-            .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=3]/td[position()=2]/span").nodeCount(2))
-            .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=3]/td[position()=2]/span[position()=1]").string("dentistry "))
-            .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=3]/td[position()=2]/span[position()=2]").string("surgery "))
-        ;
+                .andExpect(status().isOk())
+                .andExpect(xpath("//table[@id='vets']").exists())
+                .andExpect(xpath("//table[@id='vets']/tbody/tr").nodeCount(3))
+                .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=1]/td[position()=1]").string("James Carter"))
+                .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=1]/td[position()=2]/span").string("none"))
+                .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=2]/td[position()=1]").string("Helen Leary"))
+                ;
     }
 
 }

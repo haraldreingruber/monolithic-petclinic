@@ -34,7 +34,7 @@ class VetServiceTests {
         Collection<VetDto> vets = service.allVets();
 
         assertThat(vets)
-                .filteredOn(vet -> vet.getLastName() == "Douglas")
+                .filteredOn(vet -> "Douglas".equals(vet.getLastName()))
                 .hasSize(1)
                 .first()
                 .hasFieldOrPropertyWithValue("nrOfSpecialties", 2)
