@@ -5,9 +5,9 @@ import java.util.List;
 public class VetDto {
     private String firstName;
     private String lastName;
-    private List<Specialty> specialties;
+    private List<SpecialtyDto> specialties;
 
-    public VetDto(String firstName, String lastName, List<Specialty> specialties) {
+    public VetDto(String firstName, String lastName, List<SpecialtyDto> specialties) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.specialties = specialties;
@@ -21,7 +21,7 @@ public class VetDto {
         return lastName;
     }
 
-    public List<Specialty> getSpecialties() {
+    public List<SpecialtyDto> getSpecialties() {
         return specialties;
     }
 
