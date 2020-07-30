@@ -31,7 +31,7 @@ class VetServiceTests {
 
     @Test
     void shouldFindVets() {
-        Collection<Vet> vets = service.allVets(); // TODO: test service.allVetDtos();
+        Collection<Vet> vets = service.allVetsEntities(); // TODO: test service.allVetDtos();
 
         assertThat(vets)
             .filteredOn(vet -> vet.getId() == 3)

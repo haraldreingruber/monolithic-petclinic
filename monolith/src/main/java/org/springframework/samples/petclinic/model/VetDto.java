@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.vets;
+package org.springframework.samples.petclinic.model;
 
 import java.util.List;
 

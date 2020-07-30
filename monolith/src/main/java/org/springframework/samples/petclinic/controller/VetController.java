@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.vets;
+package org.springframework.samples.petclinic.controller;
 
+import org.springframework.samples.petclinic.service.IVetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -29,15 +30,15 @@ import java.util.Map;
 @Controller
 class VetController {
 
-    private final VetService service;
+    private final IVetService service;
 
-    public VetController(VetService vetService) {
+    public VetController(IVetService vetService) {
         this.service = vetService;
     }
 
     @GetMapping("/vets")
     public String showVetList(Map<String, Object> model) {
-        model.put("vets", this.service.allVetsDtos());
+        model.put("vets", this.service.allVets());
         return "vets/vetList";
     }
 

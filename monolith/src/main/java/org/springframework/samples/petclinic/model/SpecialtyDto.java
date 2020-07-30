@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.vets;
+package org.springframework.samples.petclinic.model;
 
 public class SpecialtyDto {
     private String name;
