@@ -24,23 +24,14 @@ import java.util.Collection;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class VetServiceTests {
+class VetRepositoryIntegrationTests {
 
     @Autowired
-    VetService service;
+    VetRepository vetsRepository;
 
     @Test
-    void shouldFindVets() {
-        Collection<Vet> vets = service.allVets(); // TODO: test service.allVetDtos();
-
-        assertThat(vets)
-            .filteredOn(vet -> vet.getId() == 3)
-            .hasSize(1)
-            .first()
-            .hasFieldOrPropertyWithValue("lastName", "Douglas")
-            .hasFieldOrPropertyWithValue("nrOfSpecialties", 2)
-            .extracting(Vet::getSpecialties).asList()
-            .extracting("name")
-            .containsExactly("dentistry", "surgery");
+    void testFindVets() {
+        Collection<Vet> all = vetsRepository.findAll();
+        assertThat(all).hasSize(6);
     }
 }

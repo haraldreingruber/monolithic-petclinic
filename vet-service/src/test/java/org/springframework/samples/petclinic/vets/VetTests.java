@@ -16,31 +16,27 @@
 package org.springframework.samples.petclinic.vets;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Collection;
+import org.springframework.util.SerializationUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-class VetServiceTests {
-
-    @Autowired
-    VetService service;
+/**
+ * @author Dave Syer
+ */
+class VetTests {
 
     @Test
-    void shouldFindVets() {
-        Collection<Vet> vets = service.allVets(); // TODO: test service.allVetDtos();
+    void testSerialization() {
+        Vet vet = new Vet();
+        vet.setFirstName("Zaphod");
+        vet.setLastName("Beeblebrox");
+        vet.setId(123);
 
-        assertThat(vets)
-            .filteredOn(vet -> vet.getId() == 3)
-            .hasSize(1)
-            .first()
-            .hasFieldOrPropertyWithValue("lastName", "Douglas")
-            .hasFieldOrPropertyWithValue("nrOfSpecialties", 2)
-            .extracting(Vet::getSpecialties).asList()
-            .extracting("name")
-            .containsExactly("dentistry", "surgery");
+        Vet other = (Vet) SerializationUtils.deserialize(SerializationUtils.serialize(vet));
+
+        assertThat(other.getFirstName()).isEqualTo(vet.getFirstName());
+        assertThat(other.getLastName()).isEqualTo(vet.getLastName());
+        assertThat(other.getId()).isEqualTo(vet.getId());
     }
+
 }
