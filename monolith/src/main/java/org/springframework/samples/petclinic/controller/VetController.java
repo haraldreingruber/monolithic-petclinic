@@ -17,7 +17,6 @@ package org.springframework.samples.petclinic.controller;
 
 import org.springframework.samples.petclinic.service.IVetService;
 import org.springframework.samples.petclinic.service.VetDtoClient;
-import org.springframework.samples.petclinic.vets.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 

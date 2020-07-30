@@ -38,7 +38,7 @@ class VetController {
 
     @GetMapping("/vets")
     public Collection<VetDto> showVetList(Map<String, Object> model) {
-        return this.service.allVetsDtos();
+        return this.service.allVets();
     }
 
 }

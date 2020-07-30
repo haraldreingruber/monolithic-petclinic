@@ -31,16 +31,15 @@ class VetServiceTests {
 
     @Test
     void shouldFindVets() {
-        Collection<Vet> vets = service.allVets(); // TODO: test service.allVetDtos();
+        Collection<VetDto> vets = service.allVets();
 
         assertThat(vets)
-            .filteredOn(vet -> vet.getId() == 3)
-            .hasSize(1)
-            .first()
-            .hasFieldOrPropertyWithValue("lastName", "Douglas")
-            .hasFieldOrPropertyWithValue("nrOfSpecialties", 2)
-            .extracting(Vet::getSpecialties).asList()
-            .extracting("name")
-            .containsExactly("dentistry", "surgery");
+                .filteredOn(vet -> vet.getLastName() == "Douglas")
+                .hasSize(1)
+                .first()
+                .hasFieldOrPropertyWithValue("nrOfSpecialties", 2)
+                .extracting(VetDto::getSpecialties).asList()
+                .extracting("name")
+                .containsExactly("dentistry", "surgery");
     }
 }

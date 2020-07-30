@@ -14,11 +14,11 @@ public class VetService {
         this.vets = vets;
     }
 
-    public Collection<Vet> allVets() {
+    public Collection<Vet> allVetsEntities() {
         return this.vets.findAll();
     }
 
-    public Collection<VetDto> allVetsDtos() {
+    public Collection<VetDto> allVets() {
         return this.vets.findAll().stream().map(vet -> new VetDto(
                 vet.getFirstName(),
                 vet.getLastName(),
