@@ -7,6 +7,7 @@ public class SpecialtyDto {
         return name;
     }
 
+    public SpecialtyDto(){}
     public SpecialtyDto(String name) {
         this.name = name;
     }

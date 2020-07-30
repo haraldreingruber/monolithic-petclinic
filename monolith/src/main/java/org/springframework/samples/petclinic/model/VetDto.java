@@ -7,6 +7,8 @@ public class VetDto {
     private String lastName;
     private List<SpecialtyDto> specialties;
 
+    public VetDto(){}
+
     public VetDto(String firstName, String lastName, List<SpecialtyDto> specialties) {
         this.firstName = firstName;
         this.lastName = lastName;

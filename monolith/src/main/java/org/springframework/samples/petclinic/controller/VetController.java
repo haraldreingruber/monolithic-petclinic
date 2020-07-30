@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.controller;
 
 import org.springframework.samples.petclinic.service.IVetService;
+import org.springframework.samples.petclinic.service.VetDtoClient;
 import org.springframework.samples.petclinic.vets.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,7 @@ class VetController {
 
     private final IVetService service;
 
-    public VetController(VetService vetService) {
+    public VetController(VetDtoClient vetService) {
         this.service = vetService;
     }
 
