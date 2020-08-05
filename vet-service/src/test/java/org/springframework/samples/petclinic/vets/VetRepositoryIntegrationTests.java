@@ -13,18 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.model;
+package org.springframework.samples.petclinic.vets;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-/**
- * Models a {@link Vet Vet's} specialty (for example, dentistry).
- *
- * @author Juergen Hoeller
- */
-@Entity
-@Table(name = "specialties")
-public class Specialty extends NamedEntity {
+import java.util.Collection;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest
+class VetRepositoryIntegrationTests {
+
+    @Autowired
+    VetRepository vetsRepository;
+
+    @Test
+    void testFindVets() {
+        Collection<Vet> all = vetsRepository.findAll();
+        assertThat(all).hasSize(6);
+    }
 }

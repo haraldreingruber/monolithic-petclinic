@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.controller;
+package org.springframework.samples.petclinic.vets;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -36,6 +37,11 @@ class VetControllerTests {
     void testShowVetListHtml() throws Exception {
         mockMvc.perform(get("/vets"))
             .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$[*]", hasSize(6)))
+            .andExpect(jsonPath("$[1].specialties[0].name").value("radiology"));
+
+                /*
             .andExpect(xpath("//table[@id='vets']").exists())
             .andExpect(xpath("//table[@id='vets']/tbody/tr").nodeCount(6))
             .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=1]/td[position()=1]").string("James Carter"))
@@ -47,6 +53,9 @@ class VetControllerTests {
             .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=3]/td[position()=2]/span[position()=1]").string("dentistry "))
             .andExpect(xpath("//table[@id='vets']/tbody/tr[position()=3]/td[position()=2]/span[position()=2]").string("surgery "))
         ;
+
+
+                 */
     }
 
 }

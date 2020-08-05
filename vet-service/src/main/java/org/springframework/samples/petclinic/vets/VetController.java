@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.controller;
+package org.springframework.samples.petclinic.vets;
 
-import org.springframework.samples.petclinic.service.IVetService;
-import org.springframework.samples.petclinic.service.VetDtoClient;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -28,19 +27,18 @@ import java.util.Map;
  * @author Ken Krebs
  * @author Arjen Poutsma
  */
-@Controller
+@RestController
 class VetController {
 
-    private final IVetService service;
+    private final VetService service;
 
-    public VetController(VetDtoClient vetService) {
+    public VetController(VetService vetService) {
         this.service = vetService;
     }
 
     @GetMapping("/vets")
-    public String showVetList(Map<String, Object> model) {
-        model.put("vets", this.service.allVets());
-        return "vets/vetList";
+    public Collection<VetDto> showVetList(Map<String, Object> model) {
+        return this.service.allVets();
     }
 
 }
